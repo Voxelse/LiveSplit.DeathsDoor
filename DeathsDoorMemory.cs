@@ -68,6 +68,11 @@ namespace LiveSplit.DeathsDoor {
 
         public override bool Update() => base.Update() && unityTask == null;
 
+        public void ResetData() {
+            BoolKeys.Clear();
+            CountKeys.Clear();
+        }
+
         public IEnumerable<string> NewBoolSequence() {
             foreach(KeyValuePair<string, bool> kvp in UpdateDict(BoolKeys)) {
                 if(kvp.Value) {
@@ -131,6 +136,11 @@ namespace LiveSplit.DeathsDoor {
             public Dictionary<string, T> dict = new Dictionary<string, T>();
             public Pointer<IntPtr> pointer = null;
             public int version = default;
+
+            public void Clear() {
+                dict.Clear();
+                version = 0;
+            }
         }
     }
 

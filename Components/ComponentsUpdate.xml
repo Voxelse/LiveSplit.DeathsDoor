@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="1.0.1">
+    <files>
+      <file path="Components/LiveSplit.DeathsDoor.dll" status="added"/>
+    </files>
+    <changelog>
+      <change>Fixed saved data between runs</change>
+      <change>Updated split names</change>
+    </changelog>
+  </update>
   <update version="1.0.0">
     <files>
       <file path="Components/LiveSplit.DeathsDoor.dll" status="added"/>

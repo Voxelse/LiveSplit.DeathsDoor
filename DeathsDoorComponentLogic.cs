@@ -15,10 +15,23 @@ namespace LiveSplit.DeathsDoor {
 
         public override void OnStart() {
             remainingSplits.Setup(settings.Splits);
+            memory.ResetData();
         }
 
         public override bool Split() {
-            return remainingSplits.Count() != 0 && (SplitBool() || SplitScene() || SplitFade());
+            return remainingSplits.Count() != 0 && (SplitFade() || SplitBool() || SplitScene());
+
+            bool SplitFade() {
+                if(!remainingSplits.ContainsKey("Fade")) {
+                    return false;
+                }
+                if(memory.Scene.New == "lvl_HallOfDoors_BOSSFIGHT") {
+                    return memory.HasStartedFading(Color.White, 2f) && remainingSplits.Split("Fade", "lod");
+                } else if(memory.Scene.New.StartsWith("boss_")) {
+                    return memory.HasStartedFading(Color.White, 1.5f) && remainingSplits.Split("Fade", memory.Scene.New.Substring(5));
+                }
+                return false;
+            }
 
             bool SplitBool() {
                 if(!remainingSplits.ContainsKey("Bool")) {
@@ -38,17 +51,6 @@ namespace LiveSplit.DeathsDoor {
                     && remainingSplits.Split("Scene", memory.Scene.New);
             }
 
-            bool SplitFade() {
-                if(!remainingSplits.ContainsKey("Fade")) {
-                    return false;
-                }
-                if(memory.Scene.New == "lvl_HallOfDoors_BOSSFIGHT") {
-                    return memory.HasStartedFading(Color.White, 2f) && remainingSplits.Split("Fade", "lod");
-                } else if(memory.Scene.New.StartsWith("boss_")) {
-                    return memory.HasStartedFading(Color.White, 1.5f) && remainingSplits.Split("Fade", memory.Scene.New.Substring(5));
-                }
-                return false;
-            }
         }
 
         public override bool Reset() {

@@ -18,7 +18,7 @@
   <Empty name="Scenes" text=" - - Levels - - " tip="Splits when entering a level for the first time"/>
   <Split name="&S;lvl_Tutorial" text="The Grove of Spirits"/>
   <Split name="&S;lvl_Graveyard" text="Lost Cemetry"/>
-  <Split name="&S;lvlConnect_Graveyard_Gardens" text="Crypt"/>
+  <Split name="&S;lvlConnect_Graveyard_Gardens" text="Crypt (temp name)"/>
   <Split name="&S;lvl_GrandmaGardens" text="Estate of the Urn Witch"/>
   <Split name="&S;lvl_GrandmaMansion" text="Ceramic Manor"/>
   <Split name="&S;AVARICE_WAVES_Mansion" text="Avarice - Ceramic Manor"/>
@@ -29,7 +29,7 @@
   <Split name="&S;AVARICE_WAVES_Forest" text="Avarice - Overgrown Ruins"/>
   <Split name="&S;lvl_Swamp" text="Flooded Fortress"/>
   <Split name="&S;boss_frog" text="Throne of the Frog King"/>
-  <Split name="&S;lvlconnect_graveyard_sailor" text="Cave"/>
+  <Split name="&S;lvlconnect_graveyard_sailor" text="Cave (temp name)"/>
   <Split name="&S;lvl_sailormountain" text="The Stranded Sailor"/>
   <Split name="&S;lvl_frozenfortress" text="Castle Lockstone"/>
   <Split name="&S;AVARICE_WAVES_Fortress" text="Avarice - Castle Lockstone"/>
@@ -40,32 +40,32 @@
   
 
   <Empty name="Doors" text=" - - Doors - - " tip="Splits when unlocking a door"/>
-  <Split name="&B;sdoor_graveyard" text="Lost Cemetry"/>
-  <Split name="&B;sdoor_gardens" text="Estate of the Urn Witch"/>
-  <Split name="&B;sdoor_mansion" text="Ceramic Manor"/>
-  <Split name="&B;sdoor_basementromp" text="Inner Furnace"/>
-  <Split name="&B;sdoor_grandmaboss" text="The Urn Witch's Laboratory"/>
-  <Split name="&B;sdoor_forest" text="Overgrown Ruins"/>
-  <Split name="&B;sdoor_forest_dung" text="Mushroom Dungeon"/>
-  <Split name="&B;sdoor_swamp" text="Flooded Fortress"/>
-  <Split name="&B;sdoor_frogboss" text="Throne of the Frog King"/>
-  <Split name="&B;sdoor_sailor" text="The Stranded Sailor"/>
-  <Split name="&B;sdoor_fortress" text="Castle Lockstone"/>
-  <Split name="&B;sdoor_covenant" text="Camp of the Free Crows"/>
-  <Split name="&B;sdoor_mountaintops" text="The Old Watchtowers"/>
-  <Split name="&B;sdoor_betty" text="Betty's Lair"/>
+  <Split name="&B;sdoor_graveyard" text="Lost Cemetry Door"/>
+  <Split name="&B;sdoor_gardens" text="Estate of the Urn Witch Door"/>
+  <Split name="&B;sdoor_mansion" text="Ceramic Manor Door"/>
+  <Split name="&B;sdoor_basementromp" text="Inner Furnace Door"/>
+  <Split name="&B;sdoor_grandmaboss" text="The Urn Witch's Laboratory Door"/>
+  <Split name="&B;sdoor_forest" text="Overgrown Ruins Door"/>
+  <Split name="&B;sdoor_forest_dung" text="Mushroom Dungeon Door"/>
+  <Split name="&B;sdoor_swamp" text="Flooded Fortress Door"/>
+  <Split name="&B;sdoor_frogboss" text="Throne of the Frog King Door"/>
+  <Split name="&B;sdoor_sailor" text="The Stranded Sailor Door"/>
+  <Split name="&B;sdoor_fortress" text="Castle Lockstone Door"/>
+  <Split name="&B;sdoor_covenant" text="Camp of the Free Crows Door"/>
+  <Split name="&B;sdoor_mountaintops" text="The Old Watchtowers Door"/>
+  <Split name="&B;sdoor_betty" text="Betty's Lair Door"/>
 
 
-  <Empty name="Avarices" text=" - - Avarices - - "/>
-  <Split name="&B;avarice_mansion_won" text="Avarice Fight - Ceramic Manor"/>
-  <Split name="&B;gift_fire" text="Flame Spell - Ceramic Manor"/>
-  <Split name="&B;avarice_forest_won" text="Avarice Fight - Mushroom Dungeon"/>
-  <Split name="&B;gift_bomb" text="Bomb Spell - Mushroom Dungeon"/>
-  <Split name="&B;avarice_fortress_won" text="Avarice Fight - Castle Lockstone"/>
-  <Split name="&B;gift_hookshot" text="Hookshot Spell - Castle Lockstone"/>
+  <Empty name="Avarices" text=" - - Avarices - - " tip="Splits when defeating avarice or unlocking spell"/>
+  <Split name="&B;avarice_mansion_won" text="Avarice Fight Won - Ceramic Manor"/>
+  <Split name="&B;gift_fire" text="Flame Spell"/>
+  <Split name="&B;avarice_forest_won" text="Avarice Fight Won - Mushroom Dungeon"/>
+  <Split name="&B;gift_bomb" text="Bomb Spell"/>
+  <Split name="&B;avarice_fortress_won" text="Avarice Fight Won - Castle Lockstone"/>
+  <Split name="&B;gift_hookshot" text="Hookshot Spell"/>
  
 
-  <Empty name="CrowSouls" text=" - - Crow Souls - - "/>
+  <Empty name="CrowSouls" text=" - - Crow Souls - - " tip="Splits when freeing the crow's souls"/>
   <Split name="&B;mansion_crow_soul1" text="Ceramic Manor Soul 1 (Bottom)"/>
   <Split name="&B;mansion_crow_soul2" text="Ceramic Manor Soul 2 (Big Pot)"/>
   <Split name="&B;mansion_crow_soul3" text="Ceramic Manor Soul 3 (Right)"/>
@@ -74,8 +74,8 @@
   <Split name="&B;dungeon_crow_soul2" text="Mushroom Dungeon Soul 2 (Right)"/>
   <Split name="&B;dungeon_crow_soul3" text="Mushroom Dungeon Soul 3 (Top)"/>
   <Split name="&B;dungeon_crow_soul4" text="Mushroom Dungeon Soul 4 (Left)"/>
-  <Split name="&B;fortress_crow_soul1" text="Fortress Soul 1 (Top)"/>
-  <Split name="&B;fortress_crow_soul2" text="Fortress Soul 2 (Left)"/>
-  <Split name="&B;fortress_crow_soul3" text="Fortress Soul 3 (Left Door)"/>
-  <Split name="&B;fortress_crow_soul4" text="Fortress Soul 4 (Bottom)"/>
+  <Split name="&B;fortress_crow_soul1" text="Castle Lockstone Soul 1 (Top)"/>
+  <Split name="&B;fortress_crow_soul2" text="Castle Lockstone Soul 2 (Left)"/>
+  <Split name="&B;fortress_crow_soul3" text="Castle Lockstone Soul 3 (Left Door)"/>
+  <Split name="&B;fortress_crow_soul4" text="Castle Lockstone Soul 4 (Bottom)"/>
 </Splits>
