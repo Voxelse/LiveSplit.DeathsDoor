@@ -19,7 +19,7 @@ namespace LiveSplit.DeathsDoor {
         }
 
         public override bool Split() {
-            return remainingSplits.Count() != 0 && (SplitFade() || SplitBool() || SplitScene());
+            return remainingSplits.Count() != 0 && (SplitFade() || SplitBool() || SplitScene() || SplitTruthEnding());
 
             bool SplitFade() {
                 if(!remainingSplits.ContainsKey("Fade")) {
@@ -49,6 +49,12 @@ namespace LiveSplit.DeathsDoor {
                 return remainingSplits.ContainsKey("Scene")
                     && memory.Scene.Changed
                     && remainingSplits.Split("Scene", memory.Scene.New);
+            }
+
+            bool SplitTruthEnding() {
+                return remainingSplits.ContainsKey("TruthEnding")
+                    && memory.IsInTruthTrigger()
+                    && remainingSplits.Split("TruthEnding");
             }
 
         }

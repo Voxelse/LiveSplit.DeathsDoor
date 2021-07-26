@@ -3,79 +3,162 @@
   <!ENTITY B "Bool_">
   <!ENTITY F "Fade_">
   <!ENTITY S "Scene_">
+
+  <!ENTITY G_S "The Grove of Spirits">
+  <!ENTITY L_C "Lost Cemetry">
+  <!ENTITY E_U_W "Estate of the Urn Witch">
+  <!ENTITY C_M "Ceramic Manor">
+  <!ENTITY F_O_R "Furnace Observation Rooms">
+  <!ENTITY I_F "Inner Furnace">
+  <!ENTITY U_W_L "The Urn Witch's Laboratory">
+  <!ENTITY O_R "Overgrown Ruins">
+  <!ENTITY M_D "Mushroom Dungeon">
+  <!ENTITY F_F "Flooded Fortress">
+  <!ENTITY T_F_K "Throne of the Frog King">
+  <!ENTITY S_S "The Stranded Sailor">
+  <!ENTITY C_L "Castle Lockstone">
+  <!ENTITY C_F_C "Camp of the Free Crows">
+  <!ENTITY O_W "The Old Watchtowers">
+  <!ENTITY B_L "Betty's Lair">  
 ]>
 <Splits>
-  <Empty name="Bosses" text=" - - Bosses - - " tip="Splits when beating a boss"/>
-  <Split name="&B;bosskill_forestmother" text="Demonic Forest Spirit"/>
-  <Split name="&B;redeemer_kill" text="Guardian of the Door"/>
-  <Split name="&F;grandma" text="The Witch of Urns - Grandma"/>
-  <Split name="&F;frog" text="King of the Swamp"/>
-  <Split name="&F;betty" text="Betty"/>
-  <Split name="&B;c_oldcrowdead" text="The Grey Crow"/>
-  <Split name="&F;lod" text="Lord of Door"/>
-  
+  <Parent name="Bosses" text="Bosses" tip="Splits when beating a boss">
+    <Split name="&B;bosskill_forestmother" text="Demonic Forest Spirit"/>
+    <Split name="&B;redeemer_kill" text="Guardian of the Door"/>
+    <Split name="&F;grandma" text="The Witch of Urns - Grandma"/>
+    <Split name="&F;frog" text="King of the Swamp"/>
+    <Split name="&F;betty" text="Betty"/>
+    <Split name="&B;c_oldcrowdead" text="The Grey Crow"/>
+    <Split name="&F;lod" text="Lord of Door"/>
+  </Parent>
 
-  <Empty name="Scenes" text=" - - Levels - - " tip="Splits when entering a level for the first time"/>
-  <Split name="&S;lvl_Tutorial" text="The Grove of Spirits"/>
-  <Split name="&S;lvl_Graveyard" text="Lost Cemetry"/>
-  <Split name="&S;lvlConnect_Graveyard_Gardens" text="Crypt (temp name)"/>
-  <Split name="&S;lvl_GrandmaGardens" text="Estate of the Urn Witch"/>
-  <Split name="&S;lvl_GrandmaMansion" text="Ceramic Manor"/>
-  <Split name="&S;AVARICE_WAVES_Mansion" text="Avarice - Ceramic Manor"/>
-  <Split name="&S;lvlConnect_Mansion_Basement" text="Furnace Observation Rooms"/>
-  <Split name="&S;lvl_GrandmaBasement" text="Inner Furnace"/>
-  <Split name="&S;boss_grandma" text="The Urn Witch's Laboratory"/>
-  <Split name="&S;lvl_Forest" text="Overgrown Ruins"/>
-  <Split name="&S;AVARICE_WAVES_Forest" text="Avarice - Overgrown Ruins"/>
-  <Split name="&S;lvl_Swamp" text="Flooded Fortress"/>
-  <Split name="&S;boss_frog" text="Throne of the Frog King"/>
-  <Split name="&S;lvlconnect_graveyard_sailor" text="Cave (temp name)"/>
-  <Split name="&S;lvl_sailormountain" text="The Stranded Sailor"/>
-  <Split name="&S;lvl_frozenfortress" text="Castle Lockstone"/>
-  <Split name="&S;AVARICE_WAVES_Fortress" text="Avarice - Castle Lockstone"/>
-  <Split name="&S;lvlConnect_Fortress_Mountaintops" text="Camp of the Free Crows"/>
-  <Split name="&S;lvl_mountaintops" text="The Old Watchtowers"/>
-  <Split name="&S;boss_betty" text="Betty's Lair"/>
-  <Split name="&S;OldCrowVoid" text="The Void"/>
-  
+  <Parent name="Scenes" text="Levels" tip="Splits when entering a level for the first time">
+    <Split name="&S;lvl_Tutorial" text="&G_S;"/>
+    <Split name="&S;lvl_Graveyard" text="&L_C;"/>
+    <Split name="&S;lvlConnect_Graveyard_Gardens" text="Crypt"/>
+    <Split name="&S;lvl_GrandmaGardens" text="&E_U_W;"/>
+    <Split name="&S;lvl_GrandmaMansion" text="&C_M;"/>
+    <Split name="&S;AVARICE_WAVES_Mansion" text="Avarice - &C_M;"/>
+    <Split name="&S;lvlConnect_Mansion_Basement" text="&F_O_R;"/>
+    <Split name="&S;lvl_GrandmaBasement" text="&I_F;"/>
+    <Split name="&S;boss_grandma" text="&U_W_L;"/>
+    <Split name="&S;lvl_Forest" text="&O_R;"/>
+    <Split name="&S;AVARICE_WAVES_Forest" text="Avarice - &O_R;"/>
+    <Split name="&S;lvl_Swamp" text="&F_F;"/>
+    <Split name="&S;boss_frog" text="&T_F_K;"/>
+    <Split name="&S;lvlconnect_graveyard_sailor" text="Cave"/>
+    <Split name="&S;lvl_sailormountain" text="&S_S;"/>
+    <Split name="&S;lvl_frozenfortress" text="&C_L;"/>
+    <Split name="&S;AVARICE_WAVES_Fortress" text="Avarice - &C_L;"/>
+    <Split name="&S;lvlConnect_Fortress_Mountaintops" text="&C_F_C;"/>
+    <Split name="&S;lvl_mountaintops" text="&O_W;"/>
+    <Split name="&S;boss_betty" text="&B_L;"/>
+    <Split name="&S;OldCrowVoid" text="The Void"/>
+  </Parent>
 
-  <Empty name="Doors" text=" - - Doors - - " tip="Splits when unlocking a door"/>
-  <Split name="&B;sdoor_graveyard" text="Lost Cemetry Door"/>
-  <Split name="&B;sdoor_gardens" text="Estate of the Urn Witch Door"/>
-  <Split name="&B;sdoor_mansion" text="Ceramic Manor Door"/>
-  <Split name="&B;sdoor_basementromp" text="Inner Furnace Door"/>
-  <Split name="&B;sdoor_grandmaboss" text="The Urn Witch's Laboratory Door"/>
-  <Split name="&B;sdoor_forest" text="Overgrown Ruins Door"/>
-  <Split name="&B;sdoor_forest_dung" text="Mushroom Dungeon Door"/>
-  <Split name="&B;sdoor_swamp" text="Flooded Fortress Door"/>
-  <Split name="&B;sdoor_frogboss" text="Throne of the Frog King Door"/>
-  <Split name="&B;sdoor_sailor" text="The Stranded Sailor Door"/>
-  <Split name="&B;sdoor_fortress" text="Castle Lockstone Door"/>
-  <Split name="&B;sdoor_covenant" text="Camp of the Free Crows Door"/>
-  <Split name="&B;sdoor_mountaintops" text="The Old Watchtowers Door"/>
-  <Split name="&B;sdoor_betty" text="Betty's Lair Door"/>
+  <Parent name="Doors" text="Doors" tip="Splits when unlocking a door">
+    <Split name="&B;sdoor_graveyard" text="&L_C; Door"/>
+    <Split name="&B;sdoor_gardens" text="&E_U_W; Door"/>
+    <Split name="&B;sdoor_mansion" text="&C_M; Door"/>
+    <Split name="&B;sdoor_basementromp" text="&I_F; Door"/>
+    <Split name="&B;sdoor_grandmaboss" text="&U_W_L; Door"/>
+    <Split name="&B;sdoor_forest" text="&O_R; Door"/>
+    <Split name="&B;sdoor_forest_dung" text="&M_D; Door"/>
+    <Split name="&B;sdoor_swamp" text="&F_F; Door"/>
+    <Split name="&B;sdoor_frogboss" text="&T_F_K; Door"/>
+    <Split name="&B;sdoor_sailor" text="&S_S; Door"/>
+    <Split name="&B;sdoor_fortress" text="&C_L; Door"/>
+    <Split name="&B;sdoor_covenant" text="&C_F_C; Door"/>
+    <Split name="&B;sdoor_mountaintops" text="&O_W; Door"/>
+    <Split name="&B;sdoor_betty" text="&B_L; Door"/>
+  </Parent>
 
+  <Parent name="Spells" text="Spells" tip="Splits when unlocking or upgrading a spell">
+    <Split name="&B;upgraded_arrows" text="Arrow Upgrade"/>
+    <Split name="&B;gift_fire" text="Flame Spell"/>
+    <Split name="&B;upgraded_fire" text="Flame Upgrade"/>
+    <Split name="&B;gift_bomb" text="Bomb Spell"/>
+    <Split name="&B;upgraded_bombs" text="Bomb Upgrade"/>
+    <Split name="&B;gift_hookshot" text="Hookshot Spell"/>
+    <Split name="&B;upgraded_hookshot" text="Hookshot Upgrade"/>
+  </Parent>
 
-  <Empty name="Avarices" text=" - - Avarices - - " tip="Splits when defeating avarice or unlocking spell"/>
-  <Split name="&B;avarice_mansion_won" text="Avarice Fight Won - Ceramic Manor"/>
-  <Split name="&B;gift_fire" text="Flame Spell"/>
-  <Split name="&B;avarice_forest_won" text="Avarice Fight Won - Mushroom Dungeon"/>
-  <Split name="&B;gift_bomb" text="Bomb Spell"/>
-  <Split name="&B;avarice_fortress_won" text="Avarice Fight Won - Castle Lockstone"/>
-  <Split name="&B;gift_hookshot" text="Hookshot Spell"/>
- 
+  <Parent name="Truth" text="Ancient Tablets of Knowledge" tip="Splits when grabbing a tablet of knowledge">
+    <Split name="&B;drop_truthtablet_1" text="Jefferson Tablet"/>
+    <Split name="&B;drop_truthtablet_2" text="Avarice Tablet"/>
+    <Split name="&B;drop_truthtablet_3" text="Seeds Tablet"/>
+    <Split name="&B;drop_truthtablet_4" text="Ghosts Tablet"/>
+    <Split name="&B;drop_truthtablet_5" text="Flames Tablet"/>
+    <Split name="&B;drop_truthtablet_6" text="Gravedigger Tablet"/>
+    <Split name="&B;drop_truthtablet_7" text="Owls Tablet"/>
+    <Split name="TruthEnding" text="Truth Ending"/>
+  </Parent>
 
-  <Empty name="CrowSouls" text=" - - Crow Souls - - " tip="Splits when freeing the crow's souls"/>
-  <Split name="&B;mansion_crow_soul1" text="Ceramic Manor Soul 1 (Bottom)"/>
-  <Split name="&B;mansion_crow_soul2" text="Ceramic Manor Soul 2 (Big Pot)"/>
-  <Split name="&B;mansion_crow_soul3" text="Ceramic Manor Soul 3 (Right)"/>
-  <Split name="&B;mansion_crow_soul4" text="Ceramic Manor Soul 4 (Left)"/>
-  <Split name="&B;dungeon_crow_soul1" text="Mushroom Dungeon Soul 1 (Bottom)"/>
-  <Split name="&B;dungeon_crow_soul2" text="Mushroom Dungeon Soul 2 (Right)"/>
-  <Split name="&B;dungeon_crow_soul3" text="Mushroom Dungeon Soul 3 (Top)"/>
-  <Split name="&B;dungeon_crow_soul4" text="Mushroom Dungeon Soul 4 (Left)"/>
-  <Split name="&B;fortress_crow_soul1" text="Castle Lockstone Soul 1 (Top)"/>
-  <Split name="&B;fortress_crow_soul2" text="Castle Lockstone Soul 2 (Left)"/>
-  <Split name="&B;fortress_crow_soul3" text="Castle Lockstone Soul 3 (Left Door)"/>
-  <Split name="&B;fortress_crow_soul4" text="Castle Lockstone Soul 4 (Bottom)"/>
+  <Parent name="Weapons" text="Weapons" tip="Splits when unlocking a weapon">
+    <Split name="&B;drop_hammer" text="Thunder Hammer"/>
+    <Split name="&B;drop_daggers" text="Rogue Daggers"/>
+    <Split name="&B;drop_sword_heavy" text="Reaper's Greatsword"/>
+    <Split name="&B;drop_umbrella" text="Discarded Umbrella"/>
+  </Parent>
+
+  <Parent name="Shrines" text="Shrines" tip="Splits when activating a shrine">
+    <Split name="&B;shrine_graveyardturncam" text="&L_C; Vitality Shrine (Turn Cam)"/>
+    <Split name="&B;shrine_graveyardhookshot" text="&L_C; Vitality Shrine (Hookshot)"/>
+    <Split name="&B;shrine_graveyardbomb" text="&L_C; Magic Shrine (Bomb)"/>
+    <Split name="&B;shrine_gardenturncam" text="&E_U_W; Door Magic Shrine"/>
+    <Split name="&B;shrine_gardendrop" text="&E_U_W; Door Vitality Shrine"/>
+    <Split name="&B;shrine_mansionreflection" text="&C_M; Magic Shrine"/>
+    <Split name="&B;shrine_basement" text="&I_F; Vitality Shrine"/>
+    <Split name="&B;shrine_forestsewer" text="&O_R; Vitality Shrine (Sewer)"/>
+    <Split name="&B;shrine_forestturncam" text="&O_R; Magic Shrine (Turn Cam)"/>
+    <Split name="&B;shrine_foresthookshot" text="&O_R; Magic Shrine (Hookshot)"/>
+    <Split name="&B;shrine_dungeonbomb" text="&M_D; Vitality Shrine"/>
+    <Split name="&B;shrine_swamp" text="&F_F; Magic Shrine"/>
+    <Split name="&B;shrine_sailorturncam" text="&S_S; Magic Shrine"/>
+    <Split name="&B;shrine_sailorhookshot" text="&S_S; Vitality Shrine"/>
+    <Split name="&B;shrine_icechallenge" text="&S_S; Vitality Shrine"/>
+    <Split name="&B;shrine_fortress" text="&C_L; Magic Shrine"/>
+  </Parent>
+
+  <Parent name="Trinkets" text="Shiny Things" tip="Splits when grabbing a shiny thing">
+    <Split name="&B;drop_trinket_soulkey" text="Makeshift Soul Key"/>
+    <Split name="&B;drop_trinket_flower" text="Undying Blossom"/>
+    <Split name="&B;drop_trinket_incense" text="Incense"/>
+    <Split name="&B;drop_trinket_compass" text="Old Compass"/>
+    <Split name="&B;drop_trinket_elixir" text="Sludge-Filled Urn"/>
+    <Split name="&B;drop_trinket_trowel" text="Rusty Garden Trowel"/>
+    <Split name="&B;drop_trinket_ring" text="Old Engagement Ring"/>
+    <Split name="&B;drop_trinket_photo" text="Old Photograph"/>
+    <Split name="&B;drop_trinket_basoon" text="Magical Forest Horn"/>
+    <Split name="&B;drop_trinket_seed" text="Malformed Seed"/>
+    <Split name="&B;drop_trinket_antler" text="Corrupted Antler"/>
+    <Split name="&B;drop_trinket_arrow" text="Giant Arrowhead"/>
+    <Split name="&B;drop_trinket_coin" text="Token of Death"/>
+    <Split name="&B;drop_trinket_journal" text="Captain's Log"/>
+    <Split name="&B;drop_trinket_mask" text="Grunt's Old Mask"/>
+    <Split name="&B;drop_trinket_teddy" text="Ink-Covered Teddy Bear"/>
+    <Split name="&B;drop_trinket_medal" text="Shiny Medallion"/>
+    <Split name="&B;drop_trinket_locket" text="Mysterious Locket"/>
+    <Split name="&B;drop_trinket_crown" text="Ancient Crown"/>
+    <Split name="&B;drop_trinket_contract" text="Death Contract"/>
+    <Split name="&B;drop_trinket_door_old" text="Ancient Door Scale Model"/>
+    <Split name="&B;drop_trinket_surv" text="Surveillance Device"/>
+    <Split name="&B;drop_trinket_door_new" text="Modern Door Scale Model"/>
+    <Split name="&B;drop_trinket_rusty_key" text="Rusty Belltower Key"/>
+  </Parent>
+
+  <Parent name="CrowSouls" text="Crow Souls" tip="Splits when freeing a crow soul">
+    <Split name="&B;mansion_crow_soul1" text="&C_M; Soul 1 (Bottom)"/>
+    <Split name="&B;mansion_crow_soul2" text="&C_M; Soul 2 (Big Pot)"/>
+    <Split name="&B;mansion_crow_soul3" text="&C_M; Soul 3 (Right)"/>
+    <Split name="&B;mansion_crow_soul4" text="&C_M; Soul 4 (Left)"/>
+    <Split name="&B;dungeon_crow_soul1" text="&M_D; Soul 1 (Bottom)"/>
+    <Split name="&B;dungeon_crow_soul2" text="&M_D; Soul 2 (Right)"/>
+    <Split name="&B;dungeon_crow_soul3" text="&M_D; Soul 3 (Top)"/>
+    <Split name="&B;dungeon_crow_soul4" text="&M_D; Soul 4 (Left)"/>
+    <Split name="&B;fortress_crow_soul1" text="&C_L; Soul 1 (Top)"/>
+    <Split name="&B;fortress_crow_soul2" text="&C_L; Soul 2 (Left)"/>
+    <Split name="&B;fortress_crow_soul3" text="&C_L; Soul 3 (Left Door)"/>
+    <Split name="&B;fortress_crow_soul4" text="&C_L; Soul 4 (Bottom)"/>
+  </Parent>
 </Splits>

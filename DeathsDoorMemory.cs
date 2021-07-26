@@ -21,6 +21,8 @@ namespace LiveSplit.DeathsDoor {
         private Pointer<float> FadeTimer { get; set; }
         private Pointer<float> FadeMaxTime { get; set; }
 
+        private Pointer<Vector3> PlayerPosition { get; set; }
+
         private DictData<int> CountKeys { get; set; } = new DictData<int>();
         private DictData<bool> BoolKeys { get; set; } = new DictData<bool>();
 
@@ -60,6 +62,8 @@ namespace LiveSplit.DeathsDoor {
             FadeColor = ptrFactory.Make<Color>(screenFade, unity.GetFieldOffset(screenFadeClass, "fadeColor"));
             FadeTimer = ptrFactory.Make<float>(screenFade, unity.GetFieldOffset(screenFadeClass, "timer"));
             FadeMaxTime = ptrFactory.Make<float>(screenFade, unity.GetFieldOffset(screenFadeClass, "maxTime")); 
+        
+            PlayerPosition = ptrFactory.Make<Vector3>("PlayerGlobal", "instance", 0x10, 0x30, 0x30, 0x8, 0x28, 0x10, 0x38, 0x180);
 
             logger.Log(ptrFactory.ToString());
 
@@ -132,6 +136,19 @@ namespace LiveSplit.DeathsDoor {
             return FadeTimer.Old < FadeTimer.New && FadeMaxTime.New == fadeTime && FadeColor.New.Equals(color);
         }
 
+        public bool IsInTruthTrigger() {
+            const float x = -128.9004f;
+            const float width = 6.1308f;
+            const float z = 789.7526f;
+            const float depth = 43.6074f;
+
+            const float pSize = 1f;
+
+            return Scene.New.Equals("lvlConnect_Fortress_Mountaintops")
+                && PlayerPosition.New.x - pSize < x + width && PlayerPosition.New.x + pSize > x - width
+                && PlayerPosition.New.z - pSize < z + depth && PlayerPosition.New.z + pSize > z - depth;
+        }
+
         private class DictData<T> where T : unmanaged {
             public Dictionary<string, T> dict = new Dictionary<string, T>();
             public Pointer<IntPtr> pointer = null;
@@ -158,5 +175,15 @@ namespace LiveSplit.DeathsDoor {
 
         public static Color White => new Color(1f, 1f, 1f, 1f);
         public static Color Black => new Color(0f, 0f, 0f, 1f);
+    }
+
+    public struct Vector3 {
+        public float x, y, z;
+
+        public Vector3(float x, float y, float z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
     }
 }

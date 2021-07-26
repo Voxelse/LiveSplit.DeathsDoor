@@ -7,6 +7,7 @@ using Voxif.IO;
 namespace LiveSplit.DeathsDoor {
     public partial class DeathsDoorComponent : Component {
         protected override EGameTime GameTimeType => EGameTime.Loading;
+        protected override bool IsGameTimeDefault => false;
 
         private DeathsDoorMemory memory;
 
