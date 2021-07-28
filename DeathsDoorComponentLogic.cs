@@ -10,7 +10,7 @@ namespace LiveSplit.DeathsDoor {
         }
 
         public override bool Start() {
-            return memory.SlotSelected && memory.GameTimeOfSlot(memory.SlotIndex) == 0;
+            return memory.HasStartedANewSave();
         }
 
         public override void OnStart() {
@@ -60,7 +60,7 @@ namespace LiveSplit.DeathsDoor {
         }
 
         public override bool Reset() {
-            return memory.SaveMenu.Old == default && memory.SaveMenu.New != default;
+            return memory.HasDeletedASave();
         }
 
         public override bool Loading() {

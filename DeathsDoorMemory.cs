@@ -15,7 +15,11 @@ namespace LiveSplit.DeathsDoor {
         public Pointer<bool> IsCurrentlyLoading { get; private set; }
         public StringPointer Scene { get; private set; }
 
-        public Pointer<IntPtr> SaveMenu { get; private set; }
+        private Pointer<IntPtr> SaveSlots { get; set; }
+        private Pointer<int> SlotIndex { get; set; }
+        private Pointer<IntPtr> SlotTransition { get; set; }
+
+        private StringPointer SpawnId { get; set; }
 
         private Pointer<Color> FadeColor { get; set; }
         private Pointer<float> FadeTimer { get; set; }
@@ -23,8 +27,11 @@ namespace LiveSplit.DeathsDoor {
 
         private Pointer<Vector3> PlayerPosition { get; set; }
 
-        private DictData<int> CountKeys { get; set; } = new DictData<int>();
-        private DictData<bool> BoolKeys { get; set; } = new DictData<bool>();
+        private readonly DictData<int> countKeys = new DictData<int>();
+        private readonly DictData<bool> boolKeys = new DictData<bool>();
+
+        private readonly float[] gameTimes = new float[3];
+        private bool saveIsInitialized = false;
 
         private UnityHelperTask unityTask;
 
@@ -52,11 +59,17 @@ namespace LiveSplit.DeathsDoor {
 
             LoadingIconShown = ptrFactory.Make<bool>("LoadingIcon", "instance", "show");
 
-            SaveMenu = ptrFactory.Make<IntPtr>("TitleScreen", "instance", "saveMenu");
+            var saveMenu = ptrFactory.Make<IntPtr>("TitleScreen", "instance", "saveMenu");
+            ptrFactory.Make("SaveMenu", out IntPtr saveMenuClass); //TODO add proper helper func to get classPtr
+            SaveSlots = ptrFactory.Make<IntPtr>(saveMenu, unity.GetFieldOffset(saveMenuClass, "saveSlots"));
+            SlotTransition = ptrFactory.Make<IntPtr>(saveMenu, unity.GetFieldOffset(saveMenuClass, "transitionButton"));
+            SlotIndex = ptrFactory.Make<int>(saveMenu, unity.GetFieldOffset(saveMenuClass, "index"));
 
             var gameSave = ptrFactory.Make<IntPtr>("GameSave", "currentSave", out IntPtr gameSaveClass);
-            CountKeys.pointer = ptrFactory.Make<IntPtr>(gameSave, unity.GetFieldOffset(gameSaveClass, "countKeys"));
-            BoolKeys.pointer = ptrFactory.Make<IntPtr>(gameSave, unity.GetFieldOffset(gameSaveClass, "boolKeys"));
+            SpawnId = ptrFactory.MakeString(gameSave, unity.GetFieldOffset(gameSaveClass, "spawnId"), ptrFactory.StringHeaderSize);
+            SpawnId.StringType = EStringType.UTF16Sized;
+            countKeys.pointer = ptrFactory.Make<IntPtr>(gameSave, unity.GetFieldOffset(gameSaveClass, "countKeys"));
+            boolKeys.pointer = ptrFactory.Make<IntPtr>(gameSave, unity.GetFieldOffset(gameSaveClass, "boolKeys"));
 
             var screenFade = ptrFactory.Make<IntPtr>("ScreenFade", "instance", out IntPtr screenFadeClass);
             FadeColor = ptrFactory.Make<Color>(screenFade, unity.GetFieldOffset(screenFadeClass, "fadeColor"));
@@ -70,15 +83,49 @@ namespace LiveSplit.DeathsDoor {
             unityTask = null;
         }
 
-        public override bool Update() => base.Update() && unityTask == null;
+        public override bool Update() {
+            if(base.Update() && unityTask == null) {
+                if(!saveIsInitialized && SpawnId.New.Equals("bus_overridespawn")) {
+                    saveIsInitialized = true;
+                }
+                return true;
+            }
+            return false;
+        }
 
         public void ResetData() {
-            BoolKeys.Clear();
-            CountKeys.Clear();
+            saveIsInitialized = false;
+            boolKeys.Clear();
+            countKeys.Clear();
+        }
+
+        public bool HasStartedANewSave() {
+            return SlotTransition.New != default && GameTimeOfSlot(SlotIndex.New) == 0;
+        }
+
+        public bool HasDeletedASave() {
+            if(SaveSlots.New == default) {
+                return false;
+            }
+            for(int slotId = 0; slotId < gameTimes.Length; slotId++) {
+                float time = GameTimeOfSlot(slotId);
+                if(time != gameTimes[slotId]) {
+                    float oldTime = gameTimes[slotId];
+                    gameTimes[slotId] = time;
+                    if(time == 0 && oldTime != 0) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private float GameTimeOfSlot(int index) {
+            return game.Read<float>(SaveSlots.New, 0x20 + 0x8 * index, 0x18, 0x18, 0x40);
         }
 
         public IEnumerable<string> NewBoolSequence() {
-            foreach(KeyValuePair<string, bool> kvp in UpdateDict(BoolKeys)) {
+            foreach(KeyValuePair<string, bool> kvp in UpdateDict(boolKeys)) {
                 if(kvp.Value) {
                     yield return kvp.Key;
                 }
@@ -86,12 +133,16 @@ namespace LiveSplit.DeathsDoor {
         }
 
         public IEnumerable<string> NewCountSequence() {
-            foreach(KeyValuePair<string, int> kvp in UpdateDict(CountKeys)) {
+            foreach(KeyValuePair<string, int> kvp in UpdateDict(countKeys)) {
                 yield return kvp.Key + "_" + kvp.Value;
             }
         }
 
         private IEnumerable<KeyValuePair<string, T>> UpdateDict<T>(DictData<T> dictData) where T : unmanaged {
+            if(!saveIsInitialized) {
+                yield break;
+            }
+
             int version = game.Read<int>(dictData.pointer.New + 0x44);
             if(version == dictData.version) {
                 yield break;
@@ -124,12 +175,6 @@ namespace LiveSplit.DeathsDoor {
                 Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + " --- " + msg);
             }
 #endif
-        }
-
-        public int SlotIndex => game.Read<int>(SaveMenu.New + 0xA0);
-        public bool SlotSelected => game.Read<IntPtr>(SaveMenu.New + 0x88) != default;
-        public float GameTimeOfSlot(int index) {
-            return game.Read<float>(SaveMenu.New, 0x60, 0x20 + 0x8 * index, 0x18, 0x18, 0x40);
         }
 
         public bool HasStartedFading(Color color, float fadeTime) {

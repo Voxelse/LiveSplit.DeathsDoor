@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="1.0.3">
+    <files>
+      <file path="Components/LiveSplit.DeathsDoor.dll" status="added"/>
+    </files>
+    <changelog>
+      <change>Fixed early split on start</change>
+      <change>Auto-reset is now done when erasing a savefile</change>
+    </changelog>
+  </update>
   <update version="1.0.2">
     <files>
       <file path="Components/LiveSplit.DeathsDoor.dll" status="added"/>
