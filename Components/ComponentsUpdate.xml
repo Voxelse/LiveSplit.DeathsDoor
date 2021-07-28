@@ -1,8 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="1.0.4">
+    <files>
+      <file path="Components/LiveSplit.DeathsDoor.dll" status="changed"/>
+    </files>
+    <changelog>
+      <change>Added support for the special loading of the save and quit</change>
+    </changelog>
+  </update>
   <update version="1.0.3">
     <files>
-      <file path="Components/LiveSplit.DeathsDoor.dll" status="added"/>
+      <file path="Components/LiveSplit.DeathsDoor.dll" status="changed"/>
     </files>
     <changelog>
       <change>Fixed early split on start</change>
@@ -11,7 +19,7 @@
   </update>
   <update version="1.0.2">
     <files>
-      <file path="Components/LiveSplit.DeathsDoor.dll" status="added"/>
+      <file path="Components/LiveSplit.DeathsDoor.dll" status="changed"/>
     </files>
     <changelog>
       <change>Added completion splits</change>
@@ -19,7 +27,7 @@
   </update>
   <update version="1.0.1">
     <files>
-      <file path="Components/LiveSplit.DeathsDoor.dll" status="added"/>
+      <file path="Components/LiveSplit.DeathsDoor.dll" status="changed"/>
     </files>
     <changelog>
       <change>Fixed saved data between runs</change>

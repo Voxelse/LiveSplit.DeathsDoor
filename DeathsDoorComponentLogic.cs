@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace LiveSplit.DeathsDoor {
     public partial class DeathsDoorComponent {
@@ -25,9 +26,9 @@ namespace LiveSplit.DeathsDoor {
                 if(!remainingSplits.ContainsKey("Fade")) {
                     return false;
                 }
-                if(memory.Scene.New == "lvl_HallOfDoors_BOSSFIGHT") {
+                if(memory.Scene.New.Equals("lvl_HallOfDoors_BOSSFIGHT", StringComparison.Ordinal)) {
                     return memory.HasStartedFading(Color.White, 2f) && remainingSplits.Split("Fade", "lod");
-                } else if(memory.Scene.New.StartsWith("boss_")) {
+                } else if(memory.Scene.New.StartsWith("boss_", StringComparison.Ordinal)) {
                     return memory.HasStartedFading(Color.White, 1.5f) && remainingSplits.Split("Fade", memory.Scene.New.Substring(5));
                 }
                 return false;
@@ -64,7 +65,7 @@ namespace LiveSplit.DeathsDoor {
         }
 
         public override bool Loading() {
-            return memory.LoadingIconShown.New || memory.IsCurrentlyLoading.New;
+            return memory.LoadingIconShown.New || memory.IsCurrentlyLoading.New || memory.LoadingTitleScreen();
         }
     }
 }

@@ -29,7 +29,7 @@
     <Split name="&F;frog" text="King of the Swamp"/>
     <Split name="&F;betty" text="Betty"/>
     <Split name="&B;c_oldcrowdead" text="The Grey Crow"/>
-    <Split name="&F;lod" text="Lord of Door"/>
+    <Split name="&F;lod" text="The Last Lord"/>
   </Parent>
 
   <Parent name="Scenes" text="Levels" tip="Splits when entering a level for the first time">

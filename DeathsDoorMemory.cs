@@ -10,14 +10,17 @@ namespace LiveSplit.DeathsDoor {
 
         protected override string[] ProcessNames => new string[] { "DeathsDoor" };
 
-        public Pointer<bool> LoadingIconShown { get; private set; }
-
         public Pointer<bool> IsCurrentlyLoading { get; private set; }
         public StringPointer Scene { get; private set; }
 
+        public Pointer<bool> LoadingIconShown { get; private set; }
+
+        private Pointer<IntPtr> TitleScreen { get; set; }
+        private Pointer<bool> OptionsPanelEnabled { get; set; }
+        private Pointer<int> TitleScreenIndex { get; set; }
         private Pointer<IntPtr> SaveSlots { get; set; }
-        private Pointer<int> SlotIndex { get; set; }
         private Pointer<IntPtr> SlotTransition { get; set; }
+        private Pointer<int> SlotIndex { get; set; }
 
         private StringPointer SpawnId { get; set; }
 
@@ -59,7 +62,10 @@ namespace LiveSplit.DeathsDoor {
 
             LoadingIconShown = ptrFactory.Make<bool>("LoadingIcon", "instance", "show");
 
-            var saveMenu = ptrFactory.Make<IntPtr>("TitleScreen", "instance", "saveMenu");
+            TitleScreen = ptrFactory.Make<IntPtr>("TitleScreen", "instance", out IntPtr titleScreenClass);
+            OptionsPanelEnabled = ptrFactory.Make<bool>(TitleScreen, unity.GetFieldOffset(titleScreenClass, "optionsPanel"), 0x10, 0x39);
+            TitleScreenIndex = ptrFactory.Make<int>(TitleScreen, unity.GetFieldOffset(titleScreenClass, "index"));
+            var saveMenu = ptrFactory.Make<IntPtr>(TitleScreen, unity.GetFieldOffset(titleScreenClass, "saveMenu"));
             ptrFactory.Make("SaveMenu", out IntPtr saveMenuClass); //TODO add proper helper func to get classPtr
             SaveSlots = ptrFactory.Make<IntPtr>(saveMenu, unity.GetFieldOffset(saveMenuClass, "saveSlots"));
             SlotTransition = ptrFactory.Make<IntPtr>(saveMenu, unity.GetFieldOffset(saveMenuClass, "transitionButton"));
@@ -85,7 +91,7 @@ namespace LiveSplit.DeathsDoor {
 
         public override bool Update() {
             if(base.Update() && unityTask == null) {
-                if(!saveIsInitialized && SpawnId.New.Equals("bus_overridespawn")) {
+                if(!saveIsInitialized && SpawnId.New.Equals("bus_overridespawn", StringComparison.Ordinal)) {
                     saveIsInitialized = true;
                 }
                 return true;
@@ -189,9 +195,14 @@ namespace LiveSplit.DeathsDoor {
 
             const float pSize = 1f;
 
-            return Scene.New.Equals("lvlConnect_Fortress_Mountaintops")
+            return Scene.New.Equals("lvlConnect_Fortress_Mountaintops", StringComparison.Ordinal)
                 && PlayerPosition.New.x - pSize < x + width && PlayerPosition.New.x + pSize > x - width
                 && PlayerPosition.New.z - pSize < z + depth && PlayerPosition.New.z + pSize > z - depth;
+        }
+        
+        public bool LoadingTitleScreen() {
+            return Scene.New.Equals("TitleScreen", StringComparison.Ordinal)
+                && (TitleScreen.New == default || (OptionsPanelEnabled.New && TitleScreenIndex.New == 0));
         }
 
         private class DictData<T> where T : unmanaged {
