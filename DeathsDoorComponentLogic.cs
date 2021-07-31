@@ -1,10 +1,11 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace LiveSplit.DeathsDoor {
     public partial class DeathsDoorComponent {
 
         private readonly RemainingDictionary remainingSplits;
+        private readonly HashSet<string> aiBrainsToCheck = new HashSet<string>();
 
         public override bool Update() {
             return memory.Update();
@@ -15,21 +16,30 @@ namespace LiveSplit.DeathsDoor {
         }
 
         public override void OnStart() {
-            remainingSplits.Setup(settings.Splits);
+            HashSet<string> splits = new HashSet<string>(settings.Splits);
+
+            aiBrainsToCheck.Clear();
+            foreach(string split in settings.Splits) {
+                if(split.StartsWith("AIBrain_")) {
+                    aiBrainsToCheck.Add(split.Substring(8));
+                    splits.Remove(split);
+                }
+            }
+
+            remainingSplits.Setup(splits);
             memory.ResetData();
         }
 
         public override bool Split() {
-            return remainingSplits.Count() != 0 && (SplitFade() || SplitBool() || SplitScene() || SplitTruthEnding());
+            return remainingSplits.Count() != 0 && (SplitAIBrain() || SplitBool() || SplitScene() || SplitTruthEnding());
 
-            bool SplitFade() {
-                if(!remainingSplits.ContainsKey("Fade")) {
+            bool SplitAIBrain() {
+                if(aiBrainsToCheck.Count == 0) {
                     return false;
                 }
-                if(memory.Scene.New.Equals("lvl_HallOfDoors_BOSSFIGHT", StringComparison.Ordinal)) {
-                    return memory.HasStartedFading(Color.White, 2f) && remainingSplits.Split("Fade", "lod");
-                } else if(memory.Scene.New.StartsWith("boss_", StringComparison.Ordinal)) {
-                    return memory.HasStartedFading(Color.White, 1.5f) && remainingSplits.Split("Fade", memory.Scene.New.Substring(5));
+                foreach(string name in memory.NewAIBrainDeadSequence(aiBrainsToCheck)) {
+                    logger.Log("Split AIBrain, " + name);
+                    return true;
                 }
                 return false;
             }

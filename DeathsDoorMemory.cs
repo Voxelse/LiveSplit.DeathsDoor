@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Voxif.AutoSplitter;
 using Voxif.Helpers.Unity;
 using Voxif.IO;
@@ -23,15 +24,16 @@ namespace LiveSplit.DeathsDoor {
         private Pointer<int> SlotIndex { get; set; }
 
         private StringPointer SpawnId { get; set; }
-
-        private Pointer<Color> FadeColor { get; set; }
-        private Pointer<float> FadeTimer { get; set; }
-        private Pointer<float> FadeMaxTime { get; set; }
+        
+        private Pointer<IntPtr> BrainList { get; set; }
 
         private Pointer<Vector3> PlayerPosition { get; set; }
 
         private readonly DictData<int> countKeys = new DictData<int>();
         private readonly DictData<bool> boolKeys = new DictData<bool>();
+
+        private readonly HashSet<IntPtr> aiBrains = new HashSet<IntPtr>();
+        private int aiBrainVersion;
 
         private readonly float[] gameTimes = new float[3];
         private bool saveIsInitialized = false;
@@ -77,10 +79,7 @@ namespace LiveSplit.DeathsDoor {
             countKeys.pointer = ptrFactory.Make<IntPtr>(gameSave, unity.GetFieldOffset(gameSaveClass, "countKeys"));
             boolKeys.pointer = ptrFactory.Make<IntPtr>(gameSave, unity.GetFieldOffset(gameSaveClass, "boolKeys"));
 
-            var screenFade = ptrFactory.Make<IntPtr>("ScreenFade", "instance", out IntPtr screenFadeClass);
-            FadeColor = ptrFactory.Make<Color>(screenFade, unity.GetFieldOffset(screenFadeClass, "fadeColor"));
-            FadeTimer = ptrFactory.Make<float>(screenFade, unity.GetFieldOffset(screenFadeClass, "timer"));
-            FadeMaxTime = ptrFactory.Make<float>(screenFade, unity.GetFieldOffset(screenFadeClass, "maxTime")); 
+            BrainList = ptrFactory.Make<IntPtr>("AI_Brain", "brainList");
         
             PlayerPosition = ptrFactory.Make<Vector3>("PlayerGlobal", "instance", 0x10, 0x30, 0x30, 0x8, 0x28, 0x10, 0x38, 0x180);
 
@@ -128,6 +127,51 @@ namespace LiveSplit.DeathsDoor {
 
         private float GameTimeOfSlot(int index) {
             return game.Read<float>(SaveSlots.New, 0x20 + 0x8 * index, 0x18, 0x18, 0x40);
+        }
+
+        private void UpdateAIBrains(IEnumerable<string> aiBrainsToCheck) {
+            int version = game.Read<int>(BrainList.New + 0x1C);
+            if(version == aiBrainVersion) {
+                return;
+            }
+            aiBrainVersion = version;
+
+            aiBrains.Clear();
+            int count = game.Read<int>(BrainList.New + 0x18);
+            if(count == 0) {
+                return;
+            }
+            IntPtr items = game.Read<IntPtr>(BrainList.New + 0x10);
+            for(int id = 0; id < count; id++) {
+                IntPtr aiBrain = game.Read<IntPtr>(items + 0x20 + 0x8 * id);
+                string aiBrainName = GetGameObjectName(aiBrain);
+                if(aiBrainsToCheck.Contains(aiBrainName)) {
+                    aiBrains.Add(aiBrain);
+                }
+            }
+        }
+
+        public IEnumerable<string> NewAIBrainDeadSequence(HashSet<string> aiBrainsToCheck) {
+            UpdateAIBrains(aiBrainsToCheck);
+
+            if(aiBrains.Count == 0) {
+                yield break;
+            }
+
+            HashSet<IntPtr> aiBrainsCopy = new HashSet<IntPtr>(aiBrains);
+            foreach(IntPtr aiBrain in aiBrainsCopy) {
+                float health = game.Read<float>(aiBrain, 0x58, 0x48);
+                if(health <= 0) {
+                    aiBrains.Remove(aiBrain);
+                    string name = GetGameObjectName(aiBrain);
+                    aiBrainsToCheck.Remove(name);
+                    yield return name;
+                }
+            }
+        }
+
+        private string GetGameObjectName(IntPtr ptr) {
+            return game.ReadString(game.Read(ptr, 0x10, 0x30, 0x60, 0x0), EStringType.UTF8);
         }
 
         public IEnumerable<string> NewBoolSequence() {
@@ -183,10 +227,6 @@ namespace LiveSplit.DeathsDoor {
 #endif
         }
 
-        public bool HasStartedFading(Color color, float fadeTime) {
-            return FadeTimer.Old < FadeTimer.New && FadeMaxTime.New == fadeTime && FadeColor.New.Equals(color);
-        }
-
         public bool IsInTruthTrigger() {
             const float x = -128.9004f;
             const float width = 6.1308f;
@@ -215,22 +255,6 @@ namespace LiveSplit.DeathsDoor {
                 version = 0;
             }
         }
-    }
-
-    public struct Color : IEquatable<Color> {
-        public float r, g, b, a;
-
-        public Color(float r, float g, float b, float a) {
-            this.r = r;
-            this.g = g;
-            this.b = b;
-            this.a = a;
-        }
-        
-        public bool Equals(Color other) => r == other.r && g == other.g && b == other.b && a == other.a;
-
-        public static Color White => new Color(1f, 1f, 1f, 1f);
-        public static Color Black => new Color(0f, 0f, 0f, 1f);
     }
 
     public struct Vector3 {

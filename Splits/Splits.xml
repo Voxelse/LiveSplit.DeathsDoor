@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE Splits [
-  <!ENTITY B "Bool_">
-  <!ENTITY F "Fade_">
+  <!ENTITY A "AIBrain_">
   <!ENTITY S "Scene_">
+  <!ENTITY B "Bool_">
 
   <!ENTITY G_S "The Grove of Spirits">
   <!ENTITY L_C "Lost Cemetry">
@@ -23,13 +23,13 @@
 ]>
 <Splits>
   <Parent name="Bosses" text="Bosses" tip="Splits when beating a boss">
-    <Split name="&B;bosskill_forestmother" text="Demonic Forest Spirit"/>
-    <Split name="&B;redeemer_kill" text="Guardian of the Door"/>
-    <Split name="&F;grandma" text="The Witch of Urns - Grandma"/>
-    <Split name="&F;frog" text="King of the Swamp"/>
-    <Split name="&F;betty" text="Betty"/>
-    <Split name="&B;c_oldcrowdead" text="The Grey Crow"/>
-    <Split name="&F;lod" text="The Last Lord"/>
+    <Split name="&A;_FORESTMOTHER_BOSS" text="Demonic Forest Spirit"/>
+    <Split name="&A;redeemer_BOSS" text="Guardian of the Door"/>
+    <Split name="&A;grandma" text="The Witch of Urns - Grandma"/>
+    <Split name="&A;FROG_BOSS_FAT" text="King of the Swamp"/>
+    <Split name="&A;betty_boss" text="Betty"/>
+    <Split name="&A;old_crow_boss_fbx" text="The Grey Crow"/>
+    <Split name="&A;BOSS_lord_of_doors NEW" text="The Last Lord"/>
   </Parent>
 
   <Parent name="Scenes" text="Levels" tip="Splits when entering a level for the first time">
@@ -54,6 +54,7 @@
     <Split name="&S;lvl_mountaintops" text="&O_W;"/>
     <Split name="&S;boss_betty" text="&B_L;"/>
     <Split name="&S;OldCrowVoid" text="The Void"/>
+    <Split name="&S;lvl_HallOfDoors_BOSSFIGHT" text="Hall Of Doors - LoD Last Phase"/>
   </Parent>
 
   <Parent name="Doors" text="Doors" tip="Splits when unlocking a door">

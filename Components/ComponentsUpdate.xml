@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+  <update version="1.0.5">
+    <files>
+      <file path="Components/LiveSplit.DeathsDoor.dll" status="changed"/>
+    </files>
+    <changelog>
+      <change>Replaced and improved bosses' splits so they all split on the last hit and with more precision</change>
+    </changelog>
+  </update>
   <update version="1.0.4">
     <files>
       <file path="Components/LiveSplit.DeathsDoor.dll" status="changed"/>
