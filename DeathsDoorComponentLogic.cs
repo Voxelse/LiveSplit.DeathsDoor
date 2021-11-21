@@ -31,7 +31,7 @@ namespace LiveSplit.DeathsDoor {
         }
 
         public override bool Split() {
-            return remainingSplits.Count() != 0 && (SplitAIBrain() || SplitBool() || SplitScene() || SplitTruthEnding());
+            return (remainingSplits.Count() != 0 && (SplitBool() || SplitScene() || SplitTruthEnding())) || SplitAIBrain();
 
             bool SplitAIBrain() {
                 if(aiBrainsToCheck.Count == 0) {

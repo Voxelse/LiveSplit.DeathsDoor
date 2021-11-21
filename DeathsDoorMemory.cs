@@ -68,10 +68,12 @@ namespace LiveSplit.DeathsDoor {
             OptionsPanelEnabled = ptrFactory.Make<bool>(TitleScreen, unity.GetFieldOffset(titleScreenClass, "optionsPanel"), 0x10, 0x39);
             TitleScreenIndex = ptrFactory.Make<int>(TitleScreen, unity.GetFieldOffset(titleScreenClass, "index"));
             var saveMenu = ptrFactory.Make<IntPtr>(TitleScreen, unity.GetFieldOffset(titleScreenClass, "saveMenu"));
-            ptrFactory.Make("SaveMenu", out IntPtr saveMenuClass); //TODO add proper helper func to get classPtr
-            SaveSlots = ptrFactory.Make<IntPtr>(saveMenu, unity.GetFieldOffset(saveMenuClass, "saveSlots"));
-            SlotTransition = ptrFactory.Make<IntPtr>(saveMenu, unity.GetFieldOffset(saveMenuClass, "transitionButton"));
-            SlotIndex = ptrFactory.Make<int>(saveMenu, unity.GetFieldOffset(saveMenuClass, "index"));
+            {
+                IntPtr saveMenuClass = unity.FindClass("SaveMenu");
+                SaveSlots = ptrFactory.Make<IntPtr>(saveMenu, unity.GetFieldOffset(saveMenuClass, "saveSlots"));
+                SlotTransition = ptrFactory.Make<IntPtr>(saveMenu, unity.GetFieldOffset(saveMenuClass, "transitionButton"));
+                SlotIndex = ptrFactory.Make<int>(saveMenu, unity.GetFieldOffset(saveMenuClass, "index"));
+            }
 
             var gameSave = ptrFactory.Make<IntPtr>("GameSave", "currentSave", out IntPtr gameSaveClass);
             SpawnId = ptrFactory.MakeString(gameSave, unity.GetFieldOffset(gameSaveClass, "spawnId"), ptrFactory.StringHeaderSize);
